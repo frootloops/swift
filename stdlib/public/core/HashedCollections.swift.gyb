@@ -174,7 +174,7 @@ import SwiftShims
 // Bridging `Dictionary` to `NSDictionary`
 // ---------------------------------------
 //
-// `Dictionary<K, V>` bridges to `NSDictionary` iff both `K` and `V` are
+// `Dictionary<K, V>` bridges to `NSDictionary` if both `K` and `V` are
 // bridged.  Otherwise, a runtime error is raised.
 //
 // * if both `K` and `V` are bridged verbatim, then `Dictionary<K, V>` bridges
@@ -1170,7 +1170,7 @@ public struct Dictionary<Key : Hashable, Value> :
   // CollectionType conformance
   //
 
-  /// `true` iff `count == 0`.
+  /// `true` if `count == 0`.
   public var isEmpty: Bool {
     return count == 0
   }

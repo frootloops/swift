@@ -39,7 +39,7 @@ static SILLocation getContinuationLoc(SILBasicBlock &BB, SILLocation Fallback) {
 void Condition::exitTrue(SILGenFunction &SGF, ArrayRef<SILValue> Args) {
   // If there's no continuation block, it's because the condition was
   // folded to true.  In that case, we just continue emitting code as
-  // if we were still in the true case, and we're unreachable iff the
+  // if we were still in the true case, and we're unreachable if the
   // end of the true case is unreachable.  In other words, there's
   // nothing to do.
   if (!ContBB) {
@@ -84,7 +84,7 @@ void Condition::enterFalse(SILGenFunction &SGF) {
 void Condition::exitFalse(SILGenFunction &SGF, ArrayRef<SILValue> Args) {
   // If there's no continuation block, it's because the condition was
   // folded to false.  In that case, we just continue emitting code as
-  // if we were still in the false case, and we're unreachable iff the
+  // if we were still in the false case, and we're unreachable if the
   // end of the false case is unreachable.  In other words, there's
   // nothing to do.
   if (!ContBB) return;

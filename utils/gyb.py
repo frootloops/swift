@@ -331,7 +331,7 @@ def splitGybLines(sourceLines):
     return unmatchedIndents
 
 def codeStartsWithDedentKeyword(sourceLines):
-    r"""Return True iff the incoming Python sourceLines begin with "else",
+    r"""Return True if the incoming Python sourceLines begin with "else",
     "elif", "except", or "finally".
 
     Initial comments and whitespace are ignored.

@@ -177,7 +177,7 @@ public protocol CollectionType : Indexable, SequenceType {
   @warn_unused_result
   func prefixThrough(position: Index) -> SubSequence
 
-  /// Returns `true` iff `self` is empty.
+  /// Returns `true` if `self` is empty.
   var isEmpty: Bool { get }
 
   /// Returns the number of elements.
@@ -249,7 +249,7 @@ extension CollectionType where SubSequence == Self {
 
 /// Default implementations of core requirements
 extension CollectionType {
-  /// Returns `true` iff `self` is empty.
+  /// Returns `true` if `self` is empty.
   ///
   /// - Complexity: O(1)
   public var isEmpty: Bool {
@@ -606,7 +606,7 @@ extension CollectionType {
   }
 }
 
-/// Returns `true` iff `x` is empty.
+/// Returns `true` if `x` is empty.
 @available(*, unavailable, message="access the 'isEmpty' property on the collection")
 public func isEmpty<C: CollectionType>(x: C) -> Bool {
   fatalError("unavailable function can't be called")

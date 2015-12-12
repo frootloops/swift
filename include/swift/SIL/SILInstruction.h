@@ -3294,7 +3294,7 @@ class CopyBlockInst :
       : UnaryInstructionBase(DebugLoc, operand, operand.getType()) {}
 };
 
-/// Given an object reference, return true iff it is non-nil and refers
+/// Given an object reference, return true if it is non-nil and refers
 /// to a native swift object with strong reference count of 1.
 class IsUniqueInst : public UnaryInstructionBase<ValueKind::IsUniqueInst>
 {
@@ -3304,7 +3304,7 @@ class IsUniqueInst : public UnaryInstructionBase<ValueKind::IsUniqueInst>
       : UnaryInstructionBase(DebugLoc, Operand, BoolTy) {}
 };
 
-/// Given an object reference, return true iff it is non-nil and either refers
+/// Given an object reference, return true if it is non-nil and either refers
 /// to a native swift object with strong reference count of 1 or refers to a
 /// pinned object (for simultaneous access to multiple subobjects).
 class IsUniqueOrPinnedInst :

@@ -2319,7 +2319,7 @@ Latest
     AnyObject>`.  It bridges in O(1), without memory allocation.
 
   - `Dictionary<K, V>` has an implicit conversion to `NSDictionary`.
-    `Dictionary<K, V>` bridges to `NSDictionary` iff both `K` and `V` are
+    `Dictionary<K, V>` bridges to `NSDictionary` if both `K` and `V` are
     bridged.  Otherwise, a runtime error is raised.
 
     Depending on `K` and `V` the operation can be `O(1)` without memory

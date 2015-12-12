@@ -176,7 +176,7 @@ private:
   bool tryMangleStandardSubstitution(const NominalTypeDecl *type);
   bool tryMangleSubstitution(const void *ptr);
 
-  /// \brief Mangles a sugared type iff we are mangling for the debugger.
+  /// \brief Mangles a sugared type if we are mangling for the debugger.
   template <class T> void mangleSugaredType(Type type) {
     assert(DWARFMangling &&
            "sugared types are only legal when mangling for the debugger");

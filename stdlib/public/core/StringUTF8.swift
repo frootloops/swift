@@ -157,14 +157,14 @@ extension String {
         }
       }
 
-      /// True iff the index is at the end of its view or if the next
+      /// True if the index is at the end of its view or if the next
       /// byte begins a new UnicodeScalar.
       internal var _isOnUnicodeScalarBoundary : Bool {
         let next = UTF8.CodeUnit(truncatingBitPattern: _buffer)
         return UTF8._numTrailingBytes(next) != 4 || _isAtEnd
       }
 
-      /// True iff the index is at the end of its view
+      /// True if the index is at the end of its view
       internal var _isAtEnd : Bool {
         return _buffer == Index._emptyBuffer
           && _coreIndex == _core.endIndex

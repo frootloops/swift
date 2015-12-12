@@ -208,7 +208,7 @@ public func ~> (
   args: (_Advance, (AnyForwardIndex.Distance, AnyForwardIndex))
 ) -> AnyForwardIndex 
 
-/// Return true iff `lhs` and `rhs` wrap equal underlying
+/// Return true if `lhs` and `rhs` wrap equal underlying
 /// `AnyForwardIndex`s.
 ///
 /// Requires: the types of indices wrapped by `lhs` and `rhs` are
@@ -257,7 +257,7 @@ public func ~> (
   args: (_Advance, (AnyBidirectionalIndex.Distance, AnyBidirectionalIndex))
 ) -> AnyBidirectionalIndex 
 
-/// Return true iff `lhs` and `rhs` wrap equal underlying
+/// Return true if `lhs` and `rhs` wrap equal underlying
 /// `AnyBidirectionalIndex`s.
 ///
 /// Requires: the types of indices wrapped by `lhs` and `rhs` are
@@ -318,7 +318,7 @@ public func ~> (
   args: (_Advance, (AnyRandomAccessIndex.Distance, AnyRandomAccessIndex))
 ) -> AnyRandomAccessIndex 
 
-/// Return true iff `lhs` and `rhs` wrap equal underlying
+/// Return true if `lhs` and `rhs` wrap equal underlying
 /// `AnyRandomAccessIndex`s.
 ///
 /// Requires: the types of indices wrapped by `lhs` and `rhs` are
@@ -341,12 +341,12 @@ public protocol AnyCollectionType : CollectionType {
   var underlyingCollectionID: ObjectIdentifier {get}
 }
 
-/// Return true iff `lhs` and `rhs` store the same underlying collection.
+/// Return true if `lhs` and `rhs` store the same underlying collection.
 public func === <
   L: AnyCollectionType, R: AnyCollectionType
 >(lhs: L, rhs: R) -> Bool 
 
-/// Return false iff `lhs` and `rhs` store the same underlying collection.
+/// Return false if `lhs` and `rhs` store the same underlying collection.
 public func !== <
   L: AnyCollectionType, R: AnyCollectionType
 >(lhs: L, rhs: R) -> Bool 

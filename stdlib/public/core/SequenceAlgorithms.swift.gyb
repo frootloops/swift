@@ -130,7 +130,7 @@ extension SequenceType ${"" if preds else "where Generator.Element : Equatable"}
 %{
 if preds:
   comment = """
-  /// Return true iff `self` begins with elements equivalent to those of
+  /// Return true if `self` begins with elements equivalent to those of
   /// `other`, using `isEquivalent` as the equivalence test.  Return true if
   /// `other` is empty.
   ///
@@ -140,7 +140,7 @@ if preds:
   rethrows_ = "rethrows "
 else:
   comment = """
-  /// Return true iff the initial elements of `self` are equal to `prefix`.
+  /// Return true if the initial elements of `self` are equal to `prefix`.
   /// Return true if `other` is empty."""
   rethrows_ = ""
 }%
@@ -184,7 +184,7 @@ extension SequenceType ${"" if preds else "where Generator.Element : Equatable"}
 %{
 if preds:
   comment = """
-  /// Return true iff `self` and `other` contain equivalent elements, using
+  /// Return true if `self` and `other` contain equivalent elements, using
   /// `isEquivalent` as the equivalence test.
   ///
   /// - Requires: `isEquivalent` is an
@@ -192,7 +192,7 @@ if preds:
   rethrows_ = "rethrows "
 else:
   comment = """
-  /// Return `true` iff `self` and `other` contain the same elements in the
+  /// Return `true` if `self` and `other` contain the same elements in the
   /// same order."""
   rethrows_ = ""
 }%
@@ -240,7 +240,7 @@ extension SequenceType ${"" if preds else "where Generator.Element : Comparable"
 %{
 if preds:
   comment = """
-  /// Return true iff `self` precedes `other` in a lexicographical ("dictionary")
+  /// Return true if `self` precedes `other` in a lexicographical ("dictionary")
   /// ordering, using `isOrderedBefore` as the comparison between elements.
   ///
   /// - Note: This method implements the mathematical notion of lexicographical
@@ -254,7 +254,7 @@ if preds:
   rethrows_ = "rethrows "
 else:
   comment = """
-  /// Return true iff `self` precedes `other` in a lexicographical ("dictionary")
+  /// Return true if `self` precedes `other` in a lexicographical ("dictionary")
   /// ordering, using "<" as the comparison between elements.
   ///
   /// - Note: This method implements the mathematical notion of lexicographical
@@ -302,7 +302,7 @@ else:
 //===----------------------------------------------------------------------===//
 
 extension SequenceType where Generator.Element : Equatable {
-  /// Return `true` iff `element` is in `self`.
+  /// Return `true` if `element` is in `self`.
   @warn_unused_result
   public func contains(element: ${GElement}) -> Bool {
     if let result = _customContainsEquatableElement(element) {
@@ -319,7 +319,7 @@ extension SequenceType where Generator.Element : Equatable {
 }
 
 extension SequenceType {
-  /// Return `true` iff an element in `self` satisfies `predicate`.
+  /// Return `true` if an element in `self` satisfies `predicate`.
   @warn_unused_result
   public func contains(
     @noescape predicate: (${GElement}) throws -> Bool

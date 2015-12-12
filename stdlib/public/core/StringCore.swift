@@ -225,7 +225,7 @@ public struct _StringCore {
     return UnsafeMutablePointer(_baseAddress)
   }
 
-  /// True iff a contiguous ASCII buffer available.
+  /// True if a contiguous ASCII buffer available.
   public var isASCII: Bool {
     return elementWidth == 1
   }
@@ -536,7 +536,7 @@ public struct _StringCore {
     _invariantCheck()
   }
 
-  /// Return true iff the contents of this string can be
+  /// Return true if the contents of this string can be
   /// represented as pure ASCII.
   ///
   /// - Complexity: O(N) in the worst case.
