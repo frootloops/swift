@@ -207,6 +207,14 @@ sortIsUnstableForComparable = """\
   /// The sorting algorithm is not stable (can change the relative order of
   /// elements that compare equal)."""
 
+sortIsStableForPredicate = """\
+  /// The sorting algorithm is stable (must not change the relative order of
+  /// elements for which `isOrderedBefore` does not establish an order)."""
+
+sortIsStableForComparable = """\
+  /// The sorting algorithm is stable (must not change the relative order of
+  /// elements that compare equal)."""
+
 }%
 
 % for Self in [ 'SequenceType', 'MutableCollectionType' ]:
@@ -221,6 +229,18 @@ ${orderingRequirementForComparable}
   public func sort() -> [Generator.Element] {
     var result = ContiguousArray(self)
     result.sortInPlace()
+    return Array(result)
+  }
+
+${sortDocCommentForComparable}
+  ///
+${sortIsStableForComparable}
+  ///
+${orderingRequirementForComparable}
+  @warn_unused_result(${'mutable_variant="stableSortInPlace"' if Self == 'MutableCollectionType' else ''})
+  public func stableSort() -> [Generator.Element] {
+    var result = ContiguousArray(self)
+    result.stableSortInPlace()
     return Array(result)
   }
 }
@@ -242,6 +262,25 @@ ${orderingRequirementForPredicate}
 
     var result = ContiguousArray(self)
     result.sortInPlace(escapableIsOrderedBefore)
+    return Array(result)
+  }
+
+${sortDocCommentForPredicate}
+  ///
+${sortIsStableForPredicate}
+  ///
+${orderingRequirementForPredicate}
+  @warn_unused_result(${'mutable_variant="stableSortInPlace"' if Self == 'MutableCollectionType' else ''})
+  public func stableSort(
+    @noescape isOrderedBefore: (Generator.Element, Generator.Element) -> Bool
+  ) -> [Generator.Element] {
+    typealias EscapingBinaryPredicate =
+       (Generator.Element, Generator.Element) -> Bool
+    let escapableIsOrderedBefore =
+      unsafeBitCast(isOrderedBefore, EscapingBinaryPredicate.self)
+
+    var result = ContiguousArray(self)
+    result.stableSortInPlace(escapableIsOrderedBefore)
     return Array(result)
   }
 }
@@ -271,6 +310,25 @@ ${orderingRequirementForComparable}
       _introSort(&self, self.indices)
     }
   }
+
+${sortInPlaceDocCommentForComparable}
+  ///
+${sortIsStableForComparable}
+  ///
+${orderingRequirementForComparable}
+  public mutating func stableSortInPlace() {
+    let didSortUnsafeBuffer: Void? =
+      _withUnsafeMutableBufferPointerIfSupported {
+      (baseAddress, count) -> Void in
+      var bufferPointer =
+        UnsafeMutableBufferPointer(start: baseAddress, count: count)
+      bufferPointer.stableSortInPlace()
+      return ()
+    }
+    if didSortUnsafeBuffer == nil {
+      _introStableSort(&self, self.indices)
+    }
+  }
 }
 
 extension MutableCollectionType where Self.Index : RandomAccessIndexType {
@@ -297,6 +355,32 @@ ${orderingRequirementForPredicate}
     }
     if didSortUnsafeBuffer == nil {
       _introSort(&self, self.indices, escapableIsOrderedBefore)
+    }
+  }
+
+${sortInPlaceDocCommentForPredicate}
+  ///
+${sortIsStableForPredicate}
+  ///
+${orderingRequirementForPredicate}
+  public mutating func stableSortInPlace(
+    @noescape isOrderedBefore: (Generator.Element, Generator.Element) -> Bool
+  ) {
+    typealias EscapingBinaryPredicate =
+      (Generator.Element, Generator.Element) -> Bool
+    let escapableIsOrderedBefore =
+      unsafeBitCast(isOrderedBefore, EscapingBinaryPredicate.self)
+
+    let didSortUnsafeBuffer: Void? =
+      _withUnsafeMutableBufferPointerIfSupported {
+      (baseAddress, count) -> Void in
+      var bufferPointer =
+        UnsafeMutableBufferPointer(start: baseAddress, count: count)
+      bufferPointer.stableSortInPlace(escapableIsOrderedBefore)
+      return ()
+    }
+    if didSortUnsafeBuffer == nil {
+      _introStableSort(&self, self.indices, escapableIsOrderedBefore)
     }
   }
 }

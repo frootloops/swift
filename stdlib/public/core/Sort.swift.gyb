@@ -183,6 +183,33 @@ func _introSort<
   _introSortImpl(&elements, range, ${"&comp," if p else ""} depthLimit)
 }
 
+public // @testable
+func _introStableSort<
+  C : MutableCollectionType where C.Index : RandomAccessIndexType
+  ${"" if p else ", C.Generator.Element : Comparable"}
+>(
+  inout elements: C,
+  _ range: Range<C.Index> ${"," if p else ""}
+  ${"_ isOrderedBefore: (C.Generator.Element, C.Generator.Element) -> Bool" if p else ""}
+) {
+%   if p:
+  var comp = isOrderedBefore
+%   end
+  guard range.count.toIntMax() >= 2 else { return }
+  _introStableSortImpl(&elements, range ${", &comp" if p else ""})
+}
+
+func _introStableSortImpl<
+  C : MutableCollectionType where C.Index : RandomAccessIndexType
+  ${"" if p else ", C.Generator.Element : Comparable"}
+>(
+  inout elements: C,
+  _ range: Range<C.Index> ${"," if p else ""}
+  ${"inout _ isOrderedBefore: (C.Generator.Element, C.Generator.Element) -> Bool" if p else ""}
+) {
+  _insertionSort(&elements, range ${", &isOrderedBefore" if p else ""})
+}
+
 func _introSortImpl<
   C : MutableCollectionType where C.Index : RandomAccessIndexType
   ${"" if p else ", C.Generator.Element : Comparable"}

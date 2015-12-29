@@ -224,5 +224,32 @@ Algorithm.test("sorted/return type") {
   let x: Array = ([5, 4, 3, 2, 1] as ArraySlice).sort()
 }
 
+Algorithm.test("stableSort") {
+  let a1 = MinimalComparableValue(0, identity: 1)
+  let a2 = MinimalComparableValue(0, identity: 2)
+  let a3 = MinimalComparableValue(0, identity: 3)
+  let b1 = MinimalComparableValue(1, identity: 4)
+  let b2 = MinimalComparableValue(1, identity: 5)
+  let b3 = MinimalComparableValue(1, identity: 6)
+  let c1 = MinimalComparableValue(2, identity: 7)
+  let c2 = MinimalComparableValue(2, identity: 8)
+  let c3 = MinimalComparableValue(2, identity: 9)
+
+  var input = [a3, c1, a2, b1, a1]
+  var output = [3, 2, 1, 4, 7]
+  input.stableSortInPlace()
+  expectEqual(output, input.map{ $0.identity })
+  
+  input = [b1, a3, a2, a1]
+  output = [3, 2, 1, 4]
+  input.stableSortInPlace()
+  expectEqual(output, input.map{ $0.identity })
+
+  input = [b1, a1, a3, a2]
+  output = [1, 3, 2, 4]
+  input.stableSortInPlace()
+  expectEqual(output, input.map{ $0.identity })
+}
+
 runAllTests()
 
