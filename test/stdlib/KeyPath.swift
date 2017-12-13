@@ -389,8 +389,7 @@ keyPath.test("optional force-unwrapping trap") {
   let origin_x = \TestOptional.origin!.x
   var value = TestOptional(origin: nil)
 
-  expectCrashLater()
-  _ = value[keyPath: origin_x]
+  expectCrash { _ = value[keyPath: origin_x] }
 }
 
 struct TestOptional2 {

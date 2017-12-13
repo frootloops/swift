@@ -1688,8 +1688,7 @@ self.test("\(testNamePrefix).dropFirst/semantics/dropFirst()==dropFirst(1)") {
 
 self.test("\(testNamePrefix).dropFirst/semantics/negative") {
   let s = makeWrappedSequence([1010, 2020, 3030].map(OpaqueValue.init))
-  expectCrashLater()
-  _ = s.dropFirst(-1)
+  expectCrash { _ = s.dropFirst(-1) }
 }
 
 //===----------------------------------------------------------------------===//
@@ -1733,8 +1732,7 @@ self.test("\(testNamePrefix).dropLast/semantics/equivalence") {
 
 self.test("\(testNamePrefix).dropLast/semantics/negative") {
   let s = makeWrappedSequence([1010, 2020, 3030].map(OpaqueValue.init))
-  expectCrashLater()
-  _ = s.dropLast(-1)
+  expectCrash { _ = s.dropLast(-1) }
 }
 
 //===----------------------------------------------------------------------===//
@@ -1791,8 +1789,7 @@ self.test("\(testNamePrefix).prefix/semantics/equivalence") {
 
 self.test("\(testNamePrefix).prefix/semantics/negative") {
   let s = makeWrappedSequence([1010, 2020, 3030].map(OpaqueValue.init))
-  expectCrashLater()
-  _ = s.prefix(-1)
+  expectCrash { _ = s.prefix(-1) }
 }
 
 //===----------------------------------------------------------------------===//
@@ -1849,8 +1846,7 @@ self.test("\(testNamePrefix).suffix/semantics/equivalence") {
 
 self.test("\(testNamePrefix).suffix/semantics/negative") {
   let s = makeWrappedSequence([1010, 2020, 3030].map(OpaqueValue.init))
-  expectCrashLater()
-  _ = s.suffix(-1)
+  expectCrash { _ = s.suffix(-1) }
 }
 
 //===----------------------------------------------------------------------===//
@@ -1901,17 +1897,19 @@ self.test("\(testNamePrefix).split/separator/semantics") {
 self.test("\(testNamePrefix).split/semantics/closure/negativeMaxSplit") {
   let s = makeWrappedSequenceWithEquatableElement([MinimalEquatableValue(1)])
   let separator = MinimalEquatableValue(1)
-  expectCrashLater()
-  _ = s.split(
-    maxSplits: -1,
-    omittingEmptySubsequences: false) { extractValueFromEquatable($0) == separator }
+  expectCrash {
+    _ = s.split(maxSplits: -1, omittingEmptySubsequences: false) {
+      extractValueFromEquatable($0) == separator }
+  }
 }
 
 self.test("\(testNamePrefix).split/semantics/separator/negativeMaxSplit") {
   let s = makeWrappedSequenceWithEquatableElement([MinimalEquatableValue(1)])
   let separator = wrapValueIntoEquatable(MinimalEquatableValue(1))
-  expectCrashLater()
-  _ = s.split(separator: separator, maxSplits: -1, omittingEmptySubsequences: false)
+  expectCrash {
+    _ = s.split(separator: separator, maxSplits: -1,
+      omittingEmptySubsequences: false)
+  }
 }
 
 //===----------------------------------------------------------------------===//

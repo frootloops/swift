@@ -93,8 +93,7 @@ extension TestSuite {
 
     self.test("\(testNamePrefix).removeFirst()/empty/semantics") {
       var c = makeWrappedCollection(Array<OpaqueValue<Int>>())
-      expectCrashLater()
-      _ = c.removeFirst() // Should trap.
+      expectCrash { _ = c.removeFirst() }
     }
 
     //===----------------------------------------------------------------------===//
@@ -127,20 +126,17 @@ extension TestSuite {
 
     self.test("\(testNamePrefix).removeFirst(n: Int)/empty/semantics") {
       var c = makeWrappedCollection(Array<OpaqueValue<Int>>())
-      expectCrashLater()
-      c.removeFirst(1) // Should trap.
+      expectCrash { c.removeFirst(1) }
     }
 
     self.test("\(testNamePrefix).removeFirst(n: Int)/removeNegative/semantics") {
       var c = makeWrappedCollection([1010, 2020].map(OpaqueValue.init))
-      expectCrashLater()
-      c.removeFirst(-1) // Should trap.
+      expectCrash { c.removeFirst(-1) }
     }
 
     self.test("\(testNamePrefix).removeFirst(n: Int)/removeTooMany/semantics") {
       var c = makeWrappedCollection([1010, 2020].map(OpaqueValue.init))
-      expectCrashLater()
-      c.removeFirst(3) // Should trap.
+      expectCrash { c.removeFirst(3) }
     }
 
     //===----------------------------------------------------------------------===//
@@ -237,8 +233,7 @@ extension TestSuite {
 
     self.test("\(testNamePrefix).removeLast()/empty/semantics") {
       var c = makeWrappedCollection(Array<OpaqueValue<Int>>())
-      expectCrashLater()
-      _ = c.removeLast() // Should trap.
+      expectCrash { _ = c.removeLast() }
     }
 
     //===----------------------------------------------------------------------===//
@@ -271,20 +266,17 @@ extension TestSuite {
 
     self.test("\(testNamePrefix).removeLast(n: Int)/empty/semantics") {
       var c = makeWrappedCollection(Array<OpaqueValue<Int>>())
-      expectCrashLater()
-      c.removeLast(1) // Should trap.
+      expectCrash { c.removeLast(1) }
     }
 
     self.test("\(testNamePrefix).removeLast(n: Int)/removeNegative/semantics") {
       var c = makeWrappedCollection([1010, 2020].map(OpaqueValue.init))
-      expectCrashLater()
-      c.removeLast(-1) // Should trap.
+      expectCrash { c.removeLast(-1) }
     }
 
     self.test("\(testNamePrefix).removeLast(n: Int)/removeTooMany/semantics") {
       var c = makeWrappedCollection([1010, 2020].map(OpaqueValue.init))
-      expectCrashLater()
-      c.removeLast(3) // Should trap.
+      expectCrash { c.removeLast(3) }
     }
 
     //===----------------------------------------------------------------------===//

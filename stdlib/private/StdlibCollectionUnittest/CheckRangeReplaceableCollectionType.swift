@@ -812,8 +812,7 @@ self.test("\(testNamePrefix).removeFirst()/semantics") {
 
 self.test("\(testNamePrefix).removeFirst()/empty/semantics") {
   var c = makeWrappedCollection(Array<OpaqueValue<Int>>())
-  expectCrashLater()
-  _ = c.removeFirst() // Should trap.
+  expectCrash { _ = c.removeFirst() }
 }
 
 //===----------------------------------------------------------------------===//
@@ -835,20 +834,17 @@ self.test("\(testNamePrefix).removeFirst(n: Int)/semantics") {
 
 self.test("\(testNamePrefix).removeFirst(n: Int)/empty/semantics") {
   var c = makeWrappedCollection(Array<OpaqueValue<Int>>())
-  expectCrashLater()
-  c.removeFirst(1) // Should trap.
+  expectCrash { c.removeFirst(1) }
 }
 
 self.test("\(testNamePrefix).removeFirst(n: Int)/removeNegative/semantics") {
   var c = makeWrappedCollection([1010, 2020, 3030].map(OpaqueValue.init))
-  expectCrashLater()
-  c.removeFirst(-1) // Should trap.
+  expectCrash { c.removeFirst(-1) }
 }
 
 self.test("\(testNamePrefix).removeFirst(n: Int)/removeTooMany/semantics") {
   var c = makeWrappedCollection([1010, 2020, 3030].map(OpaqueValue.init))
-  expectCrashLater()
-  c.removeFirst(5) // Should trap.
+  expectCrash { c.removeFirst(5) }
 }
 
 //===----------------------------------------------------------------------===//
@@ -1239,8 +1235,7 @@ self.test("\(testNamePrefix).removeLast()/whereIndexIsBidirectional/semantics") 
 
 self.test("\(testNamePrefix).removeLast()/whereIndexIsBidirectional/empty/semantics") {
   var c = makeWrappedCollection([])
-  expectCrashLater()
-  _ = c.removeLast() // Should trap.
+  expectCras { _ = c.removeLast() }
 }
 
 //===----------------------------------------------------------------------===//
@@ -1261,20 +1256,17 @@ self.test("\(testNamePrefix).removeLast(n: Int)/whereIndexIsBidirectional/semant
 
 self.test("\(testNamePrefix).removeLast(n: Int)/whereIndexIsBidirectional/empty/semantics") {
   var c = makeWrappedCollection([])
-  expectCrashLater()
-  c.removeLast(1) // Should trap.
+  expectCrash { c.removeLast(1) }
 }
 
 self.test("\(testNamePrefix).removeLast(n: Int)/whereIndexIsBidirectional/removeNegative/semantics") {
   var c = makeWrappedCollection([1010, 2020].map(OpaqueValue.init))
-  expectCrashLater()
-  c.removeLast(-1) // Should trap.
+  expectCrash { c.removeLast(-1) }
 }
 
 self.test("\(testNamePrefix).removeLast(n: Int)/whereIndexIsBidirectional/removeTooMany/semantics") {
   var c = makeWrappedCollection([1010, 2020].map(OpaqueValue.init))
-  expectCrashLater()
-  c.removeLast(3) // Should trap.
+  expectCrash { c.removeLast(3) }
 }
 
 //===----------------------------------------------------------------------===//

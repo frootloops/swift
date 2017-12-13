@@ -31,9 +31,7 @@ RangeTraps.test("HalfOpen")
   .code {
   var range = 1..<1
   expectType(CountableRange<Int>.self, &range)
-  
-  expectCrashLater()
-  _ = 1..<0
+  expectCrash { _ = 1..<0 }
 }
 
 RangeTraps.test("Closed")
@@ -43,9 +41,7 @@ RangeTraps.test("Closed")
   .code {
   var range = 1...1
   expectType(CountableClosedRange<Int>.self, &range)
-
-  expectCrashLater()
-  _ = 1...0
+  expectCrash { _ = 1...0 }
 }
 
 RangeTraps.test("OutOfRange")
@@ -68,8 +64,7 @@ RangeTraps.test("CountablePartialRangeFrom")
     let range = (Int.max - 1)...
     var it = range.makeIterator()
     _ = it.next()
-    expectCrashLater()
-    _ = it.next()
+    expectCrash { _ = it.next() }
 }
 
 

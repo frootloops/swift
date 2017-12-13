@@ -568,15 +568,17 @@ extension TestSuite {
       self.test("\(testNamePrefix).Index/OutOfBounds/Right/NonEmpty") {
         let c = makeWrappedCollection([ 1010, 2020, 3030 ].map(OpaqueValue.init))
         let index = c.endIndex
-        expectCrashLater()
-        _blackHole(c.index(index, offsetBy: numericCast(outOfBoundsIndexOffset)))
+        expectCrash {
+          _blackHole(c.index(index, offsetBy: numericCast(outOfBoundsIndexOffset)))
+        }
       }
 
       self.test("\(testNamePrefix).Index/OutOfBounds/Right/Empty") {
         let c = makeWrappedCollection([])
         let index = c.endIndex
-        expectCrashLater()
-        _blackHole(c.index(index, offsetBy: numericCast(outOfBoundsIndexOffset)))
+        expectCrash {
+          _blackHole(c.index(index, offsetBy: numericCast(outOfBoundsIndexOffset)))
+        }
       }
     }
 
@@ -588,17 +590,19 @@ extension TestSuite {
       self.test("\(testNamePrefix).subscript(_: Index)/OutOfBounds/Right/NonEmpty/Get") {
         let c = makeWrappedCollection([ 1010, 2020, 3030 ].map(OpaqueValue.init))
         var index = c.endIndex
-        expectCrashLater()
-        index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
-        _blackHole(c[index])
+        expectCrash {
+          index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
+          _blackHole(c[index])
+        }
       }
 
       self.test("\(testNamePrefix).subscript(_: Index)/OutOfBounds/Right/Empty/Get") {
         let c = makeWrappedCollection([])
         var index = c.endIndex
-        expectCrashLater()
-        index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
-        _blackHole(c[index])
+        expectCrash {
+          index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
+          _blackHole(c[index])
+        }
       }
 
       let tests = cartesianProduct(
@@ -653,8 +657,7 @@ extension TestSuite {
           index = sliceEndIndex
         }
 
-        expectCrashLater()
-        _blackHole(slice[index])
+        expectCrash { _blackHole(slice[index]) }
       }
     }
 
@@ -687,17 +690,19 @@ extension TestSuite {
       self.test("\(testNamePrefix).subscript(_: Range)/OutOfBounds/Right/NonEmpty/Get") {
         let c = makeWrappedCollection([ 1010, 2020, 3030 ].map(OpaqueValue.init))
         var index = c.endIndex
-        expectCrashLater()
-        index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
-        _blackHole(c[index..<index])
+        expectCrash {
+          index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
+          _blackHole(c[index..<index])
+        }
       }
 
       self.test("\(testNamePrefix).subscript(_: Range)/OutOfBounds/Right/Empty/Get") {
         let c = makeWrappedCollection([])
         var index = c.endIndex
-        expectCrashLater()
-        index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
-        _blackHole(c[index..<index])
+        expectCrash {
+          index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
+          _blackHole(c[index..<index])
+        }
       }
 
       let tests = cartesianProduct(
@@ -795,8 +800,7 @@ extension TestSuite {
           break
         }
 
-        expectCrashLater()
-        _blackHole(slice[bounds])
+        expectCrash { _blackHole(slice[bounds]) }
       }
     }
 
@@ -1063,8 +1067,7 @@ extension TestSuite {
     self.test("\(testNamePrefix).removeFirst()/slice/empty/semantics") {
       let c = makeWrappedCollection(Array<OpaqueValue<Int>>())
       var slice = c[c.startIndex..<c.startIndex]
-      expectCrashLater()
-      _ = slice.removeFirst() // Should trap.
+      expectCrash { _ = slice.removeFirst() }
     }
 
     //===------------------------------------------------------------------===//
@@ -1105,24 +1108,21 @@ extension TestSuite {
     self.test("\(testNamePrefix).removeFirst(n: Int)/slice/empty/semantics") {
       let c = makeWrappedCollection(Array<OpaqueValue<Int>>())
       var slice = c[c.startIndex..<c.startIndex]
-      expectCrashLater()
-      slice.removeFirst(1) // Should trap.
+      expectCrash { slice.removeFirst(1) }
     }
 
     self.test(
       "\(testNamePrefix).removeFirst(n: Int)/slice/removeNegative/semantics") {
       let c = makeWrappedCollection([1010, 2020].map(OpaqueValue.init))
       var slice = c[c.startIndex..<c.startIndex]
-      expectCrashLater()
-      slice.removeFirst(-1) // Should trap.
+      expectCrash { slice.removeFirst(-1) }
     }
 
     self.test(
       "\(testNamePrefix).removeFirst(n: Int)/slice/removeTooMany/semantics") {
       let c = makeWrappedCollection([1010, 2020].map(OpaqueValue.init))
       var slice = c[c.startIndex..<c.startIndex]
-      expectCrashLater()
-      slice.removeFirst(3) // Should trap.
+      expectCrash { slice.removeFirst(3) }
     }
 
     //===------------------------------------------------------------------===//
@@ -1263,8 +1263,7 @@ extension TestSuite {
     self.test("\(testNamePrefix).removeLast()/slice/empty/semantics") {
       let c = makeWrappedCollection(Array<OpaqueValue<Int>>())
       var slice = c[c.startIndex..<c.startIndex]
-      expectCrashLater()
-      _ = slice.removeLast() // Should trap.
+      expectCrash { _ = slice.removeLast() }
     }
 
     //===------------------------------------------------------------------===//
@@ -1305,8 +1304,7 @@ extension TestSuite {
     self.test("\(testNamePrefix).removeLast(n: Int)/slice/empty/semantics") {
       let c = makeWrappedCollection(Array<OpaqueValue<Int>>())
       var slice = c[c.startIndex..<c.startIndex]
-      expectCrashLater()
-      slice.removeLast(1) // Should trap.
+      expectCrash { slice.removeLast(1) }
     }
 
     self.test(
@@ -1314,8 +1312,7 @@ extension TestSuite {
     ) {
       let c = makeWrappedCollection([1010, 2020].map(OpaqueValue.init))
       var slice = c[c.startIndex..<c.startIndex]
-      expectCrashLater()
-      slice.removeLast(-1) // Should trap.
+      expectCrash { slice.removeLast(-1) }
     }
 
     self.test(
@@ -1323,8 +1320,7 @@ extension TestSuite {
     ) {
       let c = makeWrappedCollection([1010, 2020].map(OpaqueValue.init))
       var slice = c[c.startIndex..<c.startIndex]
-      expectCrashLater()
-      slice.removeLast(3) // Should trap.
+      expectCrash { slice.removeLast(3) }
     }
 
     //===------------------------------------------------------------------===//
@@ -1382,17 +1378,19 @@ extension TestSuite {
         let c = makeWrappedCollection(
           [ 1010, 2020, 3030 ].map(OpaqueValue.init))
         let index = c.startIndex
-        expectCrashLater()
-        _blackHole(
-          c.index(index, offsetBy: numericCast(-outOfBoundsIndexOffset)))
+        expectCrash {
+          _blackHole(
+            c.index(index, offsetBy: numericCast(-outOfBoundsIndexOffset)))
+        }
       }
 
       self.test("\(testNamePrefix).Index/OutOfBounds/Left/Empty") {
         let c = makeWrappedCollection([])
         let index = c.startIndex
-        expectCrashLater()
-        _blackHole(
-          c.index(index, offsetBy: numericCast(-outOfBoundsIndexOffset)))
+        expectCrash {
+          _blackHole(
+            c.index(index, offsetBy: numericCast(-outOfBoundsIndexOffset)))
+        }
       }
     }
 
@@ -1407,10 +1405,9 @@ extension TestSuite {
         let c = makeWrappedCollection(
           [ 1010, 2020, 3030 ].map(OpaqueValue.init))
         var index = c.startIndex
-        expectCrashLater()
         index = c.index(
           index, offsetBy: numericCast(-outOfBoundsSubscriptOffset))
-        _blackHole(c[index])
+        expectCrash { _blackHole(c[index]) }
       }
 
       self.test(
@@ -1418,10 +1415,9 @@ extension TestSuite {
       ) {
         let c = makeWrappedCollection([])
         var index = c.startIndex
-        expectCrashLater()
         index = c.index(
           index, offsetBy: numericCast(-outOfBoundsSubscriptOffset))
-        _blackHole(c[index])
+        expectCrash { _blackHole(c[index]) }
       }
     }
 
@@ -1436,10 +1432,9 @@ extension TestSuite {
         let c = makeWrappedCollection(
           [ 1010, 2020, 3030 ].map(OpaqueValue.init))
         var index = c.startIndex
-        expectCrashLater()
         index = c.index(
           index, offsetBy: numericCast(-outOfBoundsSubscriptOffset))
-        _blackHole(c[index..<index])
+        expectCrash { _blackHole(c[index..<index]) }
       }
 
       self.test(
@@ -1447,10 +1442,9 @@ extension TestSuite {
       ) {
         let c = makeWrappedCollection([])
         var index = c.startIndex
-        expectCrashLater()
         index = c.index(
           index, offsetBy: numericCast(-outOfBoundsSubscriptOffset))
-        _blackHole(c[index..<index])
+        expectCrash { _blackHole(c[index..<index]) }
       }
     }
 

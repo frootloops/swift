@@ -166,17 +166,19 @@ if resiliencyChecks.subscriptOnOutOfBoundsIndicesBehavior != .none {
   self.test("\(testNamePrefix).subscript(_: Index)/OutOfBounds/Right/NonEmpty/Set") {
     var c = makeWrappedCollection([ 1010, 2020, 3030 ].map(OpaqueValue.init))
     var index = c.endIndex
-    expectCrashLater()
-    index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
-    c[index] = wrapValue(OpaqueValue(9999))
+    expectCrash {
+      index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
+      c[index] = wrapValue(OpaqueValue(9999))
+    }
   }
 
   self.test("\(testNamePrefix).subscript(_: Index)/OutOfBounds/Right/Empty/Set") {
     var c = makeWrappedCollection([])
     var index = c.endIndex
-    expectCrashLater()
-    index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
-    c[index] = wrapValue(OpaqueValue(9999))
+    expectCrash {
+      index = c.index(index, offsetBy: numericCast(outOfBoundsSubscriptOffset))
+      c[index] = wrapValue(OpaqueValue(9999))
+    }
   }
 
   let tests = cartesianProduct(
@@ -236,8 +238,7 @@ if resiliencyChecks.subscriptOnOutOfBoundsIndicesBehavior != .none {
       index = sliceEndIndex
     }
 
-    expectCrashLater()
-    slice[index] = wrapValue(OpaqueValue(9999))
+    expectCrash { slice[index] = wrapValue(OpaqueValue(9999)) }
   }
 }
 
@@ -300,16 +301,14 @@ if isFixedLengthCollection {
     var c = makeWrappedCollection([ 1010, 2020, 3030 ].map(OpaqueValue.init))
     let newElements = makeWrappedCollection([ 91010, 92020, 93030, 94040 ].map(OpaqueValue.init))
 
-    expectCrashLater()
-    c[...] = newElements[...]
+    expectCrash {  c[...] = newElements[...] }
   }
 
   self.test("\(testNamePrefix).subscript(_: Range)/Set/SmallerRange") {
     var c = makeWrappedCollection([ 1010, 2020, 3030 ].map(OpaqueValue.init))
     let newElements = makeWrappedCollection([ 91010, 92020 ].map(OpaqueValue.init))
 
-    expectCrashLater()
-    c[...] = newElements[...]
+    expectCrash { c[...] = newElements[...] }
   }
 } else {
   self.test("\(testNamePrefix).subscript(_: Range)/Set/DifferentlySizedRange") {
@@ -432,8 +431,7 @@ if resiliencyChecks.subscriptRangeOnOutOfBoundsRangesBehavior != .none {
     let newValues = makeWrappedCollection(Array(elements[0..<count]))
     let newSlice = newValues[...]
 
-    expectCrashLater()
-    slice[bounds] = newSlice
+    expectCrash { slice[bounds] = newSlice }
   }
 }
 
@@ -832,17 +830,19 @@ if resiliencyChecks.subscriptOnOutOfBoundsIndicesBehavior != .none {
   self.test("\(testNamePrefix).subscript(_: Index)/OutOfBounds/Left/NonEmpty/Set") {
     var c = makeWrappedCollection([ 1010, 2020, 3030 ].map(OpaqueValue.init))
     var index = c.startIndex
-    expectCrashLater()
-    index = c.index(index, offsetBy: numericCast(-outOfBoundsSubscriptOffset))
-    c[index] = wrapValue(OpaqueValue(9999))
+    expectCrash {
+      index = c.index(index, offsetBy: numericCast(-outOfBoundsSubscriptOffset))
+      c[index] = wrapValue(OpaqueValue(9999))
+    }
   }
 
   self.test("\(testNamePrefix).subscript(_: Index)/OutOfBounds/Left/Empty/Set") {
     var c = makeWrappedCollection([])
     var index = c.startIndex
-    expectCrashLater()
-    index = c.index(index, offsetBy: numericCast(-outOfBoundsSubscriptOffset))
-    c[index] = wrapValue(OpaqueValue(9999))
+    expectCrash {
+      index = c.index(index, offsetBy: numericCast(-outOfBoundsSubscriptOffset))
+      c[index] = wrapValue(OpaqueValue(9999))
+    }
   }
 }
 

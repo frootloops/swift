@@ -164,16 +164,14 @@ tests.test("${Type}/Add/Overflow") {
   func f(_ x: ${Type}) -> ${Type} {
     return x + 1
   }
-  expectCrashLater()
-  _ = f(${Type}.max)
+  expectCrash { _ = f(${Type}.max) }
 }
 
 tests.test("${Type}/Subtract/Underflow") {
   func f(_ x: ${Type}) -> ${Type} {
     return x - 1
   }
-  expectCrashLater()
-  _ = f(${Type}.min)
+  expectCrash { _ = f(${Type}.min) }
 }
 
 tests.test("${Type}/AddInPlace/Overflow") {

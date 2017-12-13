@@ -86,8 +86,7 @@ nsValueBridging.test("NSValue can only be cast back to its original type") {
   expectEqual((rangeObject as? NSRange)?.length, range.length)
   expectEqual(rangeObject as? CGRect, .none)
 
-  expectCrashLater()
-  _ = rangeObject as! CGRect
+  expectCrash { _ = rangeObject as! CGRect }
 }
 
 runAllTests()
